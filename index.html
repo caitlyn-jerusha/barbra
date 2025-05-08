@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Mother's Day</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+    function popConfetti() {
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    }
+
+    document.querySelectorAll('.gift-box').forEach(box => {
+        box.addEventListener('click', () => {
+            box.classList.toggle('open');
+            popConfetti(); 
+        });
+    });
+</script>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader with hearts"></div>
+        <p>Loading love...</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="display:none;">
+        <h1>Happy Mother's Day, Mom!</h1>
+
+        <!-- Timeline -->
+        <section class="timeline">
+            <div class="timeline-item">
+                <h2>When I was born</h2>
+                <p>You held me with love and care.</p>
+            </div>
+            <div class="timeline-item">
+                <h2>First Day at School</h2>
+                <p>You wiped my tears and gave me courage.</p>
+            </div>
+            <div class="timeline-item">
+                <h2>Teen Years</h2>
+                <p>You guided me even when I was stubborn.</p>
+            </div>
+            <div class="timeline-item">
+                <h2>Today</h2>
+                <p>Your love still shines bright in my life.</p>
+            </div>
+        </section>
+
+        <!-- Gift Boxes -->
+        <section class="gifts">
+            <h2>Click to open your gifts!</h2>
+            <div class="gift-box" onclick="openGift(this, 'You are my superhero!')"></div>
+            <div class="gift-box" onclick="openGift(this, 'Thank you for everything!')"></div>
+            <div class="gift-box" onclick="openGift(this, 'I love you more every day!')"></div>
+        </section>
+      
+      <!-- Slideshow Button -->
+<button class="slideshow-btn" onclick="startSlideshow()">Click to See Memories ❤️</button>
+
+<!-- Slideshow Modal -->
+<div id="slideshowModal" class="modal">
+  <span class="close" onclick="closeSlideshow()">&times;</span>
+  <img class="modal-content" id="slideImg">
+</div>
+
+<script>
+    const images = [
+        'https://via.placeholder.com/600x400?text=Memory+1',
+        'https://via.placeholder.com/600x400?text=Memory+2',
+        'https://via.placeholder.com/600x400?text=Memory+3'
+    ];
+    let slideIndex = 0;
+    let slideInterval;
+
+    function startSlideshow() {
+        document.getElementById("slideshowModal").style.display = "block";
+        showSlide();
+        slideInterval = setInterval(showSlide, 2000);
+    }
+
+    function showSlide() {
+        document.getElementById("slideImg").src = images[slideIndex];
+        slideIndex = (slideIndex + 1) % images.length;
+    }
+
+    function closeSlideshow() {
+        document.getElementById("slideshowModal").style.display = "none";
+        clearInterval(slideInterval);
+    }
+</script>
+
+        <!-- Final Message -->
+        <div class="final-message glowing-text">
+    I Love You, Mom!
+</div>
+    </div>
+  <p id="typewriter" class="typewriter"></p>
+
+<script>
+    const message = "Thank you for every hug, every word of encouragement, and every act of love. You are my hero. Happy Mother’s Day!";
+    let i = 0;
+
+    function typeWriter() {
+        if (i < message.length) {
+            document.getElementById("typewriter").innerHTML += message.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        }
+    }
+
+    // Start typing after preloader disappears
+    window.addEventListener('load', () => {
+        setTimeout(typeWriter, 3000); 
+    });
+</script>
+
+    <script>
+        // Preloader
+        window.addEventListener("load", () => {
+            document.getElementById("preloader").style.display = "none";
+            document.querySelector(".container").style.display = "block";
+        });
+
+        // Gift Open Function
+        function openGift(box, message) {
+            box.classList.add("open");
+            setTimeout(() => {
+                alert(message);
+            }, 500);
+        }
+    </script>
+  <!-- Background Music -->
+<audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-love.mp3" loop></audio>
+
+<!-- Music Control -->
+<button class="music-btn" onclick="toggleMusic()">Play Music</button>
+
+<script>
+    let isPlaying = false;
+    const music = document.getElementById('bgMusic');
+
+    function toggleMusic() {
+        if (isPlaying) {
+            music.pause();
+            document.querySelector('.music-btn').textContent = "Play Music";
+        } else {
+            music.play();
+            document.querySelector('.music-btn').textContent = "Pause Music";
+        }
+        isPlaying = !isPlaying;
+    }
+</script>
+  <canvas id="heartCanvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let hearts = [];
+    for (let i = 0; i < 100; i++) {
+        hearts.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 10 + 10,
+            speed: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.5 + 0.5
+        });
+    }
+
+    function drawHeart(x, y, size, opacity) {
+        ctx.save();
+        ctx.globalAlpha = opacity;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.bezierCurveTo(x, y - size / 2, x - size, y - size / 2, x - size, y);
+        ctx.bezierCurveTo(x - size, y + size, x, y + size * 1.5, x, y + size * 2);
+        ctx.bezierCurveTo(x, y + size * 1.5, x + size, y + size, x + size, y);
+        ctx.bezierCurveTo(x + size, y - size / 2, x, y - size / 2, x, y);
+        ctx.fillStyle = '#ff85a2';
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        hearts.forEach(heart => {
+            drawHeart(heart.x, heart.y, heart.size, heart.opacity);
+            heart.y += heart.speed;
+            if (heart.y > height + 20) {
+                heart.y = -20;
+                heart.x = Math.random() * width;
+            }
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
